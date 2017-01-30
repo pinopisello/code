@@ -1,0 +1,29 @@
+4-1.html ParentComponent crea un ChildComponent ogni volta che viene rendered. ParentComponent.state.text => ChildComponent.props.name
+
+4-2.html Come 4-1 con logging lifecycle methods: getDefaultProps : chiamato SOLO UNA volta quando la classe e' instaziata
+												 getInitialState : chiamato SOLO UNA volta PRIMA del primo rendering
+												 render          : chiamato ad ogni rendering
+
+4-3.html Come 4-2 con logging lifecycle methods: componentWillMount : chiamato SOLO UNA VOLTA PRIMA del primo render
+												 componentDidMount :  chiamato SOLO UNA VOLTA DOPO  del primo render
+                                                 ParentComponent chiama componentDidMount SOLO quando tutti i suoi children sono stati montati!!
+
+
+
+4-4.html Come 4-3 con logging lifecycle methods: shouldComponentUpdate: function(nextProps, nextState) se ritorna true allora componentWillUpdate=> render =>componentDidUpdate
+												 componentWillUpdate  : function(nextProps, nextState) SEMPRE prima di ogni render
+												 componentDidUpdate   : function(previousProps, previousState)SEMPRE dopo di ogni render
+    
+    Lo stato di un component deve semore avvenire parent=>child atraverso child.props .Mai cambiare lo state di un child cambiando il suo state.
+
+
+4-5 e 4-6 sono useless
+
+4-7.html  Definizione ReactClass usando 'extends React.Component ' invece che React.createClass().
+
+
+
+
+
+
+

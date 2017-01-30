@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+        <title>React In Action</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/g/react@15.3.1(react.js+react-dom.js)"></script>
+        <!-- Babel e' necessario per processare JSX -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script> 
+        <div id="container"></div>
+      
+        <script type="text/babel">  //serve a babel a capire che c'e' JSX dentro e server traspilation
+
+const ChildComponent = React.createClass({
+    propTypes: {
+        name: React.PropTypes.string
+    },
+    getDefaultProps: function() {
+        console.log('ChildComponent: getDefaultProps');
+    },
+    getInitialState: function() {
+        console.log('ChildComponent: getInitialState');
+        return {name: 'Mark'};
+    },
+   componentWillMount: function() {
+        console.log('ChildComponent: componentWillMount');
+    },
+    componentDidMount: function() {
+        console.log('ChildComponent: componentDidMount');
+    },
+    componentWillUnmount: function() {
+        console.log('ChildComponent: componentWillUnmount');
+    },
+   shouldComponentUpdate: function(nextProps, nextState) {
+        console.log('<ChildComponent/> - shouldComponentUpdate()');
+        console.log('nextProps: ', nextProps);
+        console.log('nextnextState: ', nextState);
+        return true;
+    },
+    componentWillUpdate: function(nextProps, nextState) {
+        console.log('<ChildComponent/> - componentWillUpdate');
+        console.log('nextProps: ', nextProps);
+        console.log('nextState: ', nextState);
+    },
+    componentDidUpdate: function(previousProps, previousState) {
+        console.log('ChildComponent: componentDidUpdate');
+        console.log('previousProps:', previousProps);
+        console.log('previousState:', previousState);
+    },
+    render: function() {
+        console.log('ChildComponent: render');
+        return (
+            <div>
+                Props: {this.props.name}
+            </div>
+        );
+    }
+});
+
+
+const ParentComponent = React.createClass({
+    getDefaultProps: function() {
+        console.log('ParentComponent: getDefaultProps');
+    },
+    getInitialState: function() {
+        console.log('ParentComponent: getInitialState');
+        return {text: ''};
+    },
+    componentWillMount: function() {
+        console.log('ParentComponent: componentWillMount');
+    },
+    componentDidMount: function() {
+        console.log('ParentComponent: componentDidMount');
+    },
+    componentWillUnmount: function() {
+        console.log('ParentComponent: componentWillUnmount');
+    },
+    onInputChange: function(e) {
+        this.setState({text: e.target.value});
+    },
+    render: function() {
+        console.log('ParentComponent: render');
+        return (
+            <div className="container">
+                <h2>Let's learn about rendering and lifecycle methods!</h2>
+                <input value={this.state.text} onChange={this.onInputChange}/>
+                <ChildComponent name={this.state.text}/>
+            </div>
+        );
+    }
+});
+
+ReactDOM.render(
+  <ParentComponent/>,
+  document.getElementById('container')
+);
+
+</script>
+</body>
+</html>
+

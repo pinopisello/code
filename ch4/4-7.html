@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+        <title>React In Action</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/g/react@15.3.1(react.js+react-dom.js)"></script>
+        <!-- Babel e' necessario per processare JSX -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script> 
+        <div id="container"></div>
+      
+      
+       <script>
+       class Foo {
+    	    constructor(a,b) {
+    	        this.x = a;
+    	        this.y = b;
+    	        console.log(new.target.name);
+    	    }
+
+    	    gimmeXY() {
+    	        return this.x * this.y;
+    	    }
+    	}
+       
+       
+       class Bar extends Foo {
+    	    constructor(a,b,c) {
+    	        super( a, b );
+    	        this.z = c;
+    	    }
+
+    	    gimmeXYZ() {
+    	        return super.gimmeXY() * this.z;
+    	    }
+    	}
+       
+       var b = new Bar( 5, 15, 25 );
+
+       b.x;                        // 5
+       b.y;                        // 15
+       b.z;                        // 25
+       b.gimmeXYZ();               // 1875
+       
+       
+       class MyCoolArray extends Array {
+    	    // force `species` to be parent constructor
+    	    static get [Symbol.species]() { return Array; }
+    	}
+
+    	var a = new MyCoolArray( 1, 2, 3 ),
+    	    b = a.map( function(v){ return v * 2; } );
+
+    let s =	b instanceof MyCoolArray;   // false
+    let d=	b instanceof Array;         // true
+       
+       </script>
+      
+      
+        <script type="text/babel"> 
+   
+
+
+       class App extends React.Component {
+          constructor() {
+              super();
+              this.state = {
+                  posts: {
+                      all: [],
+                      filtered: []
+                  },
+                  category: null,
+                  filters: {
+                      image: null,
+                      link: null,
+                      categories: []
+                  },
+                  loaded: false,
+                  showBanner: false
+              };
+          }
+
+          render () {
+              return (
+                  <div className="app">
+                      Letters Social - coming soon!
+                  </div>
+              );
+          }
+      }
+
+var dd = new App();
+ReactDOM.render(
+  <App/>,
+  document.getElementById('container')
+);
+</script>
+</body>
+</html>
+

@@ -13,30 +13,44 @@
     <script type="text/javascript">
         var mountTarget = document.getElementById('ourFirstApp');
 
+        
+        
         var CreateComment = React.createClass({
             propTypes: {
-                handleCommentSubmit: React.PropTypes.func.isRequired,
+                handleCommentSubmit: React.PropTypes.func.isRequired,  //https://facebook.github.io/react/docs/typechecking-with-proptypes.html
                 content: React.PropTypes.string,
             },
+            
+            //Definisco state {content,author} di CreateCommentElement ottenuto da CreateComment class
             getInitialState: function() {
                 return {
                     content: '',
                     author: ''
                 };
             },
+            
+            
+            //custom function invocata onChange di author_input
             handleAuthorChange: function(event) {
                 this.setState({
                     author: event.target.value
                 });
             },
+            
+           //custom function invocata onChange di  text_input
             handleTextChange: function(event) {
                 this.setState({
                     content: event.target.value
                 });
             },
+            
+            //invocata a form submission!Vedi 'render'
             handleSubmit: function(event) {
                 event.preventDefault();
-                this.props.onCommentSubmit({
+                this.props.onCommentSubmit({//onCommentSubmit e' una function passata al momento della creazione component.
+                							//Dovrebbe essere una funvione del parent [non ancora definito ...] in modo da informare
+                							//parent che un nuovo comment e' stato creato e che la view deve essere aggiornata!
+  
                     author: this.state.author.trim(),
                     content: this.state.content.trim()
                 });
@@ -45,18 +59,23 @@
                     text: ''
                 });
             },
+            
+            
             render: function() {
                 return React.createElement('form', {
                         className: 'createComment',
-                        onSubmit: this.handleSubmit
+                        onSubmit: this.handleSubmit  //'this' riferisce al backing instance che possiede i metodi definiti in specification object 
                     },
                     React.createElement('input', {
+                        id:'author_input',
                         type: 'text',
                         placeholder: 'Your name',
                         value: this.state.author,
-                        onChange: this.handleAuthorChange
+                        onChange: this.handleAuthorChange//ogni volta che valore author_input cambia, handleAuthorChange(event) viene invocata
+                        								 //cosicche anche lo state del component possa essere aggiornato [setState()]
                     }),
                     React.createElement('input', {
+                    	id:'text_input',
                         type: 'text',
                         placeholder: 'Thoughts?'
                     }),

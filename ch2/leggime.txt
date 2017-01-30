@@ -1,0 +1,32 @@
+Vai http://reactcheatsheet.com/ per api docs.
+
+
+2-2.html  scheletro ourFirstApp.No React code
+
+2-3.html primo esempio ReactDOM.render(..) e React.createElement(..)
+
+2-4.html primo esempio React.createClass(..)
+
+2-5.html rendering due nested ReactElement definiti da due ReactClass indipendenti
+
+2-6.html  esempio ReactClass con state [specification.getInitialState()] ma nessun event handler per aggiornare state.
+          Il compoent [un form con due inputs] viene rendered ma non fa un cazzo.
+
+2-7.html  copia 2-6 ma con  event handler per aggiornare state del backing instance del Component 'CreateComment'
+
+2-8.html clone di 2-7.html.Cazzo!!
+
+2-9.html Esempio che definisce classi Post,Comment e CreateComment ma che lega i vari components.
+
+2-10.html Come 2-9 ma con CommentBox aggiunto e con i Components che si parlano!!
+          La gerarchia e': CommentBox -> Post -> [Comment ->... Comment ] -> CreateComment
+          Stavolta cliccano post un nuovo Comment e' aggiunto!
+          
+2-11.html Clone di 2-10 ma usa JSX per fare "transpliation" di codice React.
+          Nota l inclusione di Babel.js per preprocessare JSX.
+          Babel vede <Post ../> e capisce deve invocare React.createElement(PostClass, etc etc)          
+          
+          
+          
+          
+          

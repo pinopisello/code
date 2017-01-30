@@ -1,0 +1,5 @@
+Implementa esempio di http://redux.js.org/docs/basics/UsageWithReact.html
+
+npm run esempio_plain_redux lancia esempio_plain_redux.js che crea uno state, dispatcha una serie di actions e stampa
+lo state risultante.
+

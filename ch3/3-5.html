@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+        <title>React In Action</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/g/react@15.3.1(react.js+react-dom.js)"></script>
+        <!-- Babel e' necessario per processare JSX -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script> 
+        <div id="container"></div>
+      
+        <script type="text/babel">  //serve a babel a capire che c'e' JSX dentro e server traspilation
+
+
+
+const Counter = React.createClass({
+    getInitialState: function() {
+        return {
+          count: 0
+        };
+    },
+    onButtonClick: function() {
+        this.setState((previousState, currentProps) =>{// setState(function(prevstate, props) => newState )  https://facebook.github.io/react/docs/react-component.html#setstate
+            return {
+                count: previousState.count + currentProps.incrementBy
+            };
+        });
+    },
+    render: function() {
+        return (
+            <div>
+                <h1>{this.state.count}</h1>
+                <button onClick={this.onButtonClick}>+</button>
+            </div>
+        )
+    }
+})
+
+ReactDOM.render(
+  <Counter incrementBy={3}/>,
+  document.getElementById('container')
+);
+</script>
+</body>
+</html>

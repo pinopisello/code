@@ -11,6 +11,8 @@
     <script type="text/javascript">
       var mountTarget = document.getElementById('ourFirstApp');
 
+      
+      //I comments iniziali...
 var data = { //#A
   "post": { //#A
     "id": 123, //#A
@@ -18,28 +20,59 @@ var data = { //#A
     "user": "Mark Thomas",
   },
   "comments": [{ //#B
-    "id": 0,
+    "identifier": 0,
     "user": "David",
     "content": "such. win."
   }, { //#B
-    "id": 1,
+    "identifier": 1,
     "user": "Haley",
     "content": "Love it."
   }, { //#B
-    "id": 2,
+    "identifier": 2,
     "user": "Peter",
     "content": "Who was Samuel Johnson?"
   }, { //#B
-    "id": 3,
+    "identifier": 3,
     "user": "Mitchell",
     "content": "@Peter get off Letters and do your homework"
   }, { //#B
-    "id": 4,
+    "identifier": 4,
     "user": "Peter",
     "content": "@mitchell ok :P"
   }]
 };
 
+
+//============================  Comment  =======================================
+var Comment = React.createClass({
+propTypes: {
+	id: React.PropTypes.number.isRequired,
+    content: React.PropTypes.string.isRequired,
+    user: React.PropTypes.string.isRequired,
+},
+render: function() {
+    return (
+        React.createElement('div', {
+        	    id:this.props.id,
+                className: 'comment'
+            },
+            React.createElement('h2', {
+                    className: 'commentAuthor'
+                },
+                this.props.user + ' : ',
+                React.createElement('span', {
+                        className: 'commentContent'
+                    },
+                    this.props.content
+                )
+            )
+        )
+    );
+}
+});
+ 
+      
+//============================  Post  =======================================
 var Post = React.createClass({
     propTypes: {
         user: React.PropTypes.string.isRequired, //#A
@@ -68,75 +101,62 @@ var Post = React.createClass({
     }
 });
 
-var Comment = React.createClass({
-    propTypes: {
-        id: React.PropTypes.number.isRequired,
-        content: React.PropTypes.string.isRequired,
-        user: React.PropTypes.string.isRequired,
-    },
-    render: function() {
-        return (
-            React.createElement('div', {
-                    className: 'comment'
-                },
-                React.createElement('h2', {
-                        className: 'commentAuthor'
-                    },
-                    this.props.user + ' : ',
-                    React.createElement('span', {
-                            className: 'commentContent'
-                        },
-                        this.props.content
-                    )
-                )
-            )
-        );
-    }
-});
 
+
+//============================  CreateComment  =======================================
 var CreateComment = React.createClass({
   propTypes: {
-    handleCommentSubmit: React.PropTypes.func.isRequired,
+	onCommentSubmit: React.PropTypes.func.isRequired,
     content: React.PropTypes.string,
   },
+  
   getInitialState: function() {
-    return { //#A
-      content: '', //#A
-      user: '' //#A
-    }; //#A
+    return { 
+      content: '', 
+      user: '' 
+    }; 
   },
-  handleAuthorChange: function(event) { //#B
-    this.setState({ //#B
-      user: event.target.value //#B
-    }); //#B
-  }, //#B
-  handleTextChange: function(event) { //#C
-    this.setState({ //#C
-      content: event.target.value //#C
-    }); //#C
-  }, //#C
-  handleSubmit: function(event) { //#D
-    event.preventDefault(); //#D
-    this.props.onCommentSubmit({ //#D
-      user: this.state.user.trim(), //#D
-      content: this.state.content.trim() //#D
+  
+  handleAuthorChange: function(event) { 
+    this.setState({ 
+      user: event.target.value 
+    }); 
+  }, 
+  
+  handleTextChange: function(event) { 
+    this.setState({ 
+      content: event.target.value 
     });
-    this.setState({ //#E
-      author: '', //#E
-      content: '' //#E
+  }, 
+  
+  
+  handleSubmit: function(event) { 
+    event.preventDefault(); 
+    this.props.onCommentSubmit({//informo il parent CommentBox che c'e' un nuovo comment!! 
+      user: this.state.user.trim(),
+      content: this.state.content.trim() 
+    });
+    
+    this.setState({ //azzero gi inputs cosi un nuovo comment puo essere creato.Triggera render() dove gli input avreanno i values riazzerati
+      user: '', 
+      content: '' 
     });
   },
+  
+  
   render: function() {
     return React.createElement('form', {
         className: 'createComment',
-        onSubmit: this.handleSubmit //#F
+        onSubmit: this.handleSubmit 
       },
+      
       React.createElement('input', {
         type: 'text',
         placeholder: 'Your name',
-        value: this.state.user, //#F
-        onChange: this.handleAuthorChange //#F
+        value: this.state.user, 
+        onChange: this.handleAuthorChange 
       }),
+      
       React.createElement('input', {
         type: 'text',
         placeholder: 'Thoughts?',
@@ -151,57 +171,81 @@ var CreateComment = React.createClass({
   }
 });
 
-var CommentBox = React.createClass({
+
+//============================  CommentBox  =======================================
+var CommentBox = React.createClass(
+{
   propTypes: {
     post: React.PropTypes.object,
     comments: React.PropTypes.arrayOf(React.PropTypes.object),
   },
+  
   getInitialState: function() {
     return {
-      comments: this.props.comments //#A
+      comments: this.props.comments //props.comments e' sia a prop che uno state!!
     };
   },
+  
+  //passata a CreateComment in render() per ricevere nuovi comments!!
   handleCommentSubmit: function(comment) {
     console.log(comment);
-    var comments = this.state.comments; //#B
+    var comments = this.state.comments; 
     // note that we didn't directly modify state
-    comment.id = Date.now(); //#B
-    var newComments = comments.concat([comment]); //#B
-    this.setState({ //#B
-      comments: newComments //#B
-    }); //#B
+    comment.identifier = Date.now(); 
+    var newComments = comments.concat([comment]); //aggiungo novo comment a quelli gia esistenti
+    this.setState({//update dello state.React capira' state di CreateBox e' cambiato ed invochera' render() dove il nuovo state.comments avra' un nuovo elemento
+    	           //che verra' visualizzato!
+      comments: newComments 
+    }); 
   },
+  
+  
   render: function() {
     return (
+      //wrapper div
       React.createElement('div', {
+    	//  id:'commentbox',
           className: 'commentBox'
         },
-        React.createElement(Post, {
-          id: this.props.post.id, //#C
-          content: this.props.post.content, //#C
-          user: this.props.post.user, //#C
+        
+      //rendering del Post
+        React.createElement(Post, {//primo chind di wrapper div
+          id: this.props.post.id, 
+          content: this.props.post.content, 
+          user: this.props.post.user, 
         }),
-        this.state.comments.map(function(comment) { //#D
-          return React.createElement(Comment, { //#D
-            key: comment.id, //#D
-            content: comment.content, //#D
-            user: comment.user, //#D
+        
+        //rendering dei Comments
+        this.state.comments.map(function(comment) { //secondo chind di wrapper div [array di Comment elements]
+          return React.createElement(Comment, { 
+            key: comment.identifier, 
+            id: comment.identifier, 
+            content: comment.content, 
+            user: comment.user, 
           })
         }),
+        
+        //rendering dei CreateComment
         React.createElement(CreateComment, {
-          onCommentSubmit: this.handleCommentSubmit //#E
+          onCommentSubmit: this.handleCommentSubmit//CreateComment riceve this.handleCommentSubmit come props.onCommentSubmit
+          										   //Cosicche' ad ogni formSubmit CommentBox puo' essere informato new Comment, aggiornare il suo state
+          										   //e render il nuovo comment
         })
       )
     );
   }
-});
+}
+);
 
-var App = React.createElement(CreateComment);
+//var App = React.createElement(CreateComment);
 
-ReactDOM.render(React.createElement(CommentBox, {
+ReactDOM.render(React.createElement(CommentBox, 
+	//pros passati a CommentBox
+	{
     comments: data.comments,
     post: data.post,
-}), mountTarget);
+    }
+), mountTarget);
 
 
     </script>

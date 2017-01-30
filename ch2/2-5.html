@@ -12,7 +12,11 @@
 
     <script type="text/javascript">
         var mountTarget = document.getElementById('ourFirstApp');
-        var Post = React.createClass({
+        
+        //ReactClass "Post"
+        var Post = React.createClass( 
+        //ReactClass object specification
+        {
             propTypes: {
                 user: React.PropTypes.string.isRequired,
                 content: React.PropTypes.string.isRequired,
@@ -38,8 +42,11 @@
                     )
                 );
             }
-        });
+        }
+        );
 
+  
+        //ReactClass "Comment"
         var Comment = React.createClass({
             propTypes: {
                 id: React.PropTypes.number.isRequired,
@@ -66,12 +73,13 @@
             }
         });
 
+        //App = PostElement(CommentElement)
         var App = React.createElement(Post, {
                 id: 1,
                 content: " said: This is a post!",
                 user: 'mark',
             },
-            React.createElement(Comment, {
+            React.createElement(Comment, {//CommentElement e' child PostElements
                 id: 2,
                 user: 'bob',
                 content: " commented: wow! how cool!"

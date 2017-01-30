@@ -12,26 +12,27 @@
 
     <script type="text/javascript">
         var mountTarget = document.getElementById('ourFirstApp');
-        var Post = React.createClass({
+        
+        var Post = React.createClass(//React.createClass(object specification) ->ReactClass
+        		
+        {//specification object
             propTypes: {
                 user: React.PropTypes.string.isRequired,
                 content: React.PropTypes.string.isRequired,
                 id: React.PropTypes.number.isRequired,
             },
-            render: function() {
+            render: function() {//render method needs to be a function that returns exactly one ReactElement.
                 return (
-                    React.createElement('div', {
-                            className: 'post'
-                        },
+                    React.createElement('div', { className: 'post'},
                         React.createElement('h2', {
                                 className: 'postAuthor',
                                 id: this.props.id
                             },
-                            this.props.user,
-                            React.createElement('span', {
+                            this.props.user,             //Text child di h2
+                            React.createElement('span', {//Span child di h2
                                     className: 'postBody'
                                 },
-                                this.props.content
+                                this.props.content       //Text child di Span
                             )
                         ),
                         this.props.children
@@ -39,12 +40,19 @@
                 );
             }
         });
-
-        var App = React.createElement(Post, {
+		
+        
+        //React.createElement( String/ReactClass type,
+        //                       [object props],
+        //                       [children ...]
+        //                       ) ->ReactElement							     
+        var App = React.createElement(Post, 
+        	{//object props .Diventa this.props in React.createClass.specification.render
             id: 1,
             content: " said: This is a post!",
             user: 'mark',
-        });
+            }
+        );
 
         ReactDOM.render(App, mountTarget);
     </script>

@@ -6,7 +6,8 @@
     </head>
     <body>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/g/react@15.3.1(react.js+react-dom.js)"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+        <!-- Babel e' necessario per processare JSX -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script> 
         <div id="ourFirstApp"></div>
 
         <script type="text/babel">
@@ -40,37 +41,33 @@
                 }
             ]
           };
-          var Post = React.createClass({propTypes : {
-                user: React.PropTypes.string.isRequired,
-                content: React.PropTypes.string.isRequired,
-                id: React.PropTypes.number.isRequired
-            },
-            render : function() {
-                return (
-                    <div className="post">
-                        <h2 className="postAuthor">{this.props.user}</h2>
-                        <span className="postBody">{this.props.content}</span>
-                        {this.props.children}
-                    </div>
-                );
-            }
-          });
-          var Comment = React.createClass({propTypes : {
+
+
+//============================  Comment  =======================================
+          var Comment = React.createClass(
+        {
+                propTypes : {
                 id: React.PropTypes.number.isRequired,
                 content: React.PropTypes.string.isRequired,
                 user: React.PropTypes.string.isRequired
-            },
+                },
+
             render : function() {
                 return (
-                    <div className="comment">
+                    <div className="comment"> {/*Inceve di Teact.createElement('div',etc etc ... */}
                         <div className="commentAuthor">
-                            {this.props.user + ' : '}
+                            {this.props.user + ' : '}  {/*curly braces e' per JS in line expressions */}
                             <span className="commentContent">{this.props.content}</span>
                         </div>
                     </div>
                 );
             }
-          });
+          }
+);
+
+
+
+//============================  CreateComment  =======================================
             var CreateComment = React.createClass({propTypes : {
                 handleCommentSubmit: React.PropTypes.func.isRequired,
                 content: React.PropTypes.string
@@ -86,12 +83,12 @@
             },
             handleSubmit : function(event) {
                 event.preventDefault();
-                this.props.onCommentSubmit({user: this.state.user.trim(), content: this.state.content.trim()});
+                this.props.handleCommentSubmit({user: this.state.user.trim(), content: this.state.content.trim()});
                 this.setState({author: '', content: ''});
             },
             render : function() {
                 return (
-                    <form onSubmit={this.handleSubmit} className="createComment">
+                    <form onSubmit={this.handleSubmit} className="createComment"> {/*onSubmit non compare nell html.E' tutto nascosto da React */}
                         <input value={this.state.user} onChange={this.handleAuthorChange} placeholder="Your name" type="text"/>
                         <input value={this.state.content} onChange={this.handleTextChange} placeholder="Thoughts?" type="text"/>
                         <input value="Post" type="submit"/>
@@ -99,6 +96,31 @@
                 );
             }
           });
+
+
+
+//============================  Post  =======================================
+          var Post = React.createClass({propTypes : {
+                user: React.PropTypes.string.isRequired,
+                content: React.PropTypes.string.isRequired,
+                id: React.PropTypes.number.isRequired
+            },
+            render : function() {
+                return (
+                    <div className="post">
+                        <h2 className="postAuthor">{this.props.user}</h2>
+                        <span className="postBody">{this.props.content}</span>
+                        {this.props.children}
+                    </div>
+                );
+            }
+          });
+
+
+
+
+
+//============================  CommentBox  =======================================
           var CommentBox = React.createClass({propTypes : {
                 post: React.PropTypes.object,
                 comments: React.PropTypes.arrayOf(React.PropTypes.object)
@@ -117,20 +139,22 @@
             render : function() {
                 return (
                     <div className="commentBox">
-                        <Post id={this.props.post.id} content={this.props.post.content} user={this.props.post.user}/> {this.state.comments.map(function(comment) {
-                            return (<Comment key={comment.id} content={comment.content} user={comment.user}/>)
-                        })
+                        <Post id={this.props.post.id} content={this.props.post.content} user={this.props.post.user}/> 
+                         {this.state.comments.map(
+							function(comment) {
+                               return (<Comment key={comment.id} id={comment.id} content={comment.content} user={comment.user}/>)
+                             })
                         }
-                        <CreateComment onCommentSubmit={this.handleCommentSubmit}/>
+                        <CreateComment handleCommentSubmit={this.handleCommentSubmit}/>
                     </div>
 
                 );
             }
         });
 
-        ReactDOM.render(
-            <CommentBox comments={data.comments} //#D
-                        post={data.post}/>, mountTarget);
+
+
+        ReactDOM.render( <CommentBox comments={data.comments}   post={data.post}/>, mountTarget);
         </script>
   </body>
 </html>

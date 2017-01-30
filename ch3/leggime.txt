@@ -1,0 +1,18 @@
+3-1.js  non serve a un cazzo!
+
+3-2.js  non serve a un cazzo!
+
+3-4.html esempio che dimostra che setState() fa shallow merge del component state
+
+3-5.html esempio che dimostra  setState(function(prevstate, props) => newState cosicche si puo' modificare SOLO cio che serve dello state
+
+3-6.html clone di 3-5.html con  React.PropTypes ,getDefaultProps,this.setState(function(previousState, currentProps)
+
+3-7.html Stateless functional components: no state, solo props.Definibili con named/anonymous functions che accettano props come input.
+         Si possono aggiunfere tutte properties dello specification object (propTypes,defaultProps,etc) aggiungendole  come properties di tale function.
+		 Il return di tale function e' interpretato come il return del render().
+		 
+3-8.html Owner-ownee components relation.Un owenr UserCard setta props e le passa ai suoi ownees UserProfileLink e UserProfile definito nel suo render().		 
+         Non si affronta il caso in cui ownee cambia ler props del owner.Owner passa data downstream [one way data flow] ma tale data non puo essere mutata!
+
+

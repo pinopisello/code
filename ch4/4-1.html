@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+        <title>React In Action</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/g/react@15.3.1(react.js+react-dom.js)"></script>
+        <!-- Babel e' necessario per processare JSX -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script> 
+        <div id="container"></div>
+      
+        <script type="text/babel">  //serve a babel a capire che c'e' JSX dentro e server traspilation
+
+
+
+
+const ChildComponent = React.createClass({        //React.createClass(object specification) ->ReactClass   
+    											  //https://facebook.github.io/react/docs/react-api.html#createclass
+   render: function() {						  
+        console.log('ChildComponent: render');
+        return (
+            <div>
+                Props: {this.props.name}
+            </div>
+        );
+    }  
+});
+
+
+
+
+const ParentComponent = React.createClass({
+    onInputChange: function(e) {
+        this.setState({text: e.target.value}); 
+    },
+
+    getInitialState: function() {
+        console.log('ParentComponent.getInitialState()');
+        return {text: ''}
+    },
+
+    render: function() {
+        console.log('ParentComponent: render');
+        return (
+            <div className="container">
+                <h2>
+                    Learn about rendering and lifecycle methods!
+                </h2>
+                <input value={this.state.text} onChange={this.onInputChange}/>
+                <ChildComponent name={this.state.text}/>  
+            </div>
+        );
+    }
+});
+
+ReactDOM.render(<ParentComponent/>, document.getElementById('container'));
+</script>
+</body>
+</html>
