@@ -38,13 +38,13 @@ class App extends React.Component {
 				headers: {'Content-Type':'application/json'}
 			}
 			// Send the new post to the API  https://fetch.spec.whatwg.org/
-		/*	fetch(`${process.env.ENDPOINT}/posts`, requestOptions)
+		    fetch(`${process.env.ENDPOINT}/posts`, requestOptions)
 			.then(res => {
 				if(res.ok === true){
 					this.fetchPosts();
 				}
 			   });
-			   */
+			   
 }
 
 

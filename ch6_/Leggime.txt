@@ -1,0 +1,23 @@
+Capitolo 6 di React in Action
+
+Vedi React_in_Action_letters-social/src/index.js
+
+Startare in debug mode usando "npm run start-webpack-dev-babel".
+Startare "npm run api:dev" per le chiamate rest
+
+In /src/index.js viene rendered il component /src/components/Router.js
+
+In Router, per ogni nested <Route path= location=> viene creato una entry in Router.routes={path,render}
+dover render e' una function che sa come rendere il component associato al path
+
+Quindi per ogni url c'e' un solo component che viene rendered:
+
+1)http://localhost:3000/login        => /React_in_Action_letters-social/src/containers/Login.js
+
+2)http://localhost:3000/profile      => /React_in_Action_letters-social/src/containers/Profile.js
+
+3)http://localhost:3000/posts/1484349729843     => /React_in_Action_letters-social/src/containers/Post.js
+
+
+
+

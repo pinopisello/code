@@ -18,7 +18,7 @@ class CreatePost extends React.Component {
 
   handlePostChange(event) {
     const content =event.target.value;
-    console.log(`handlePostChange(${event.target.value})`);
+    console.log(event);  
     this.setState({
       content,
       valid: content.length <= 3,
@@ -51,12 +51,12 @@ class CreatePost extends React.Component {
     return (
       <form className="create-post" onSubmit={this.handleSubmit}>
         <textarea value={this.state.content} onChange={this.handlePostChange} placeholder="What's on your mind?" />
-{ !this.state.valid ? <div>your post is too long! :(</div> : null}
-<input disabled={!this.state.valid} 
-type="submit" 
-className="btn btn-default" 
-placeholder="Post"/>
-	
+		{ !this.state.valid ? <div>your post is too long! :(</div> : null}
+		<input disabled={!this.state.valid} 
+		type="submit" 
+		className="btn btn-default" 
+		placeholder="Post"/>
+			
       </form>
     );
   }

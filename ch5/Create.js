@@ -14,9 +14,11 @@ class CreatePost extends React.Component {
     this.handlePostChange = this.handlePostChange.bind(this);  //Function.prototype.bind()  quando handlePostChange e' invocato, this riferira' a questo component invece che undefined!
   }
 
+  //ogni volta che la textarea viene modificata occorre updatare lo state
+  //altrimenti la view non viene aggionata!!
   handlePostChange(event) {
     const content =event.target.value;
-    console.log(`handlePostChange(${event.target.value})`);
+    console.log(`CreatePost.handlePostChange(${event.target.value})`);
     this.setState({
       content,
       valid: content.length <= 3,
@@ -24,7 +26,7 @@ class CreatePost extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault();//Non si vuole inviare il post direttamente, solo notificare parent App del nuovo post
     if (!this.state.valid) {
       return;
     }
@@ -36,7 +38,7 @@ class CreatePost extends React.Component {
         content: this.state.content,
       };
 
-      this.props.onSubmit(newPost);
+      this.props.onSubmit(newPost);//comunico al parent App che form deve essere inviato
       this.setState({
         content: '',
         valid: false,
@@ -48,13 +50,10 @@ class CreatePost extends React.Component {
     return (
       <form className="create-post" onSubmit={this.handleSubmit}>
         <textarea value={this.state.content} onChange={this.handlePostChange} placeholder="What's on your mind?" />
-{ !this.state.valid ? <div>your post is too long! :(</div> : null}
-<input disabled={!this.state.valid} 
-type="submit" 
-className="btn btn-default" 
-placeholder="Post"/>
-      </form>
-    );
+		{ !this.state.valid ? <div>your post is too long! :(</div> : null}
+		<input disabled={!this.state.valid}  type="submit"  className="btn btn-default"  placeholder="Post"/>
+	  </form>
+		    );
   }
 }
 

@@ -2,11 +2,13 @@ Capitolo 5 di React in action
 
 Implementa una pagina (CreatePost_test.html) che usa Ract e ES6 syntax caricata nel browser SENZA usare webpack.
 
+Per esecuzione, lanciare http-server da /Users/glocon/Miei/local_git/nike_repo/React_In_Action/code/ch5s
+
 Per usare import e es6 sintax  nel browser vedi http://k33g.github.io/2015/05/02/ES6.html
 
 Usa babel-core/browser.js e es6-module-loader/es6-module-loader-dev.js
 
-
+Usa React_in_Action_ch5_webpack per stesso codice ma con webpack
 
 
 

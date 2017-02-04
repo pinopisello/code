@@ -4,6 +4,8 @@ const validate = require('webpack-validator');//Valida il webpack config object 
 const parts = require('./libs/parts');
 const TARGET = process.env.npm_lifecycle_event;
 const ENABLE_POLLING = process.env.ENABLE_POLLING;
+
+
 const PATHS = {
   app: path.join(__dirname, 'app'),
   style: [
@@ -12,6 +14,7 @@ const PATHS = {
   build: path.join(__dirname, 'build'),
   test: path.join(__dirname, 'tests')
 };
+
 
 
 process.env.BABEL_ENV = TARGET;
@@ -30,7 +33,7 @@ const common = merge(
     }
   },
   parts.indexTemplate({//
-    title: 'Redux-Basics',
+    title: 'React in action ch5',
     appMountId: 'app'     //<div id='app'> e' l elemento che ReactDOM.render() verra' chiamato per appiccicare la gerarchia React
   }),
   parts.loadJSX(PATHS.app)//definisce loader bable per tutti i files js e jsx
@@ -89,6 +92,10 @@ switch(TARGET) {
           style: PATHS.style
         }
       },
+      parts.setFreeVariable(
+        'process.env.ENDPOINT',
+        'http://localhost:3500'
+      ),
       parts.setupCSS(PATHS.style),
       parts.devServer({
         // Customize host/port here if needed

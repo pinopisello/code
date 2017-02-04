@@ -12,7 +12,7 @@ class App extends React.Component {
 	  
 	  //handler che viene invocato all invio del form
 	  handlePostSubmit(payload) {
-			console.log(payload); 
+			console.log(`App.handlePostSubmit()   payload = ${payload}`); 
 			// Disable empty posts
 			if (!payload.content) {
               return;
@@ -30,7 +30,7 @@ class App extends React.Component {
 					'Content-Type': 'application/json'}
 			}
 			// Send the new post to the API https://fetch.spec.whatwg.org/
-			fetch(`${process.env.ENDPOINT}/posts`,requestOptions)	
+			fetch('www.google.post/posts',requestOptions)	
 			.then()
 			}
 

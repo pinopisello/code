@@ -8,6 +8,7 @@ const NpmInstallPlugin = require('npm-install-webpack-plugin');//https://github.
                                                                //Speed up development by automatically installing & saving dependencies with Webpack.//
 
 
+
 exports.indexTemplate = function(options) {  //Genera build/index.html con title "options.title" e una div  <div id="app"></div> 
   return {                                   //con tutti gli script links ai bundles:
 	  										 /*
@@ -223,7 +224,7 @@ exports.npmInstall = function(options) {
 
   return {
     plugins: [
-      new NpmInstallPlugin(options)
+    //  new NpmInstallPlugin(options)
     ]
   };
 }
